@@ -2,7 +2,7 @@ body {
     /* 设置页面高度 */
     /*height: 100%;*/
     /* 设置背景图片 */
-    background-image: url("../img/background.jpg");
+    background-image: url("https://img.hongmao.run/background/wqx/background.jpg");
     /* 设置图片仅显示一次，不重复显示 */
     background-repeat: no-repeat;
     background-size: 100%;
@@ -50,7 +50,8 @@ body {
     height: inherit;
     /* 鼠标悬浮时，变为小手指 */
     cursor: pointer;
-    padding-left: 1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
 .common_block {
