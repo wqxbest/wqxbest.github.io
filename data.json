@@ -3,6 +3,10 @@
     {
       "name": "协同平台",
       "url": "https://xt.iprtop.com/ui/index.jsp"
+    },
+    {
+      "name": "邮箱",
+      "url": "https://mail.iprtop.com"
     }
   ],
   "blockConfig": {
