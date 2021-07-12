@@ -1,19 +1,97 @@
 /**
- * 执行搜索
+ * 变量
  */
-function do_search () {
-    let keyword = document.getElementById("search_input").value;
-    if (keyword != null && keyword.length > 0) {
-        open_new_page("https://www.bing.com/search?q=" + keyword);
+const variate = {
+    /* 当前是否正在输入，输入中时不触发回车查询 */
+    type_in_now: false
+};
+
+/**
+ * 选择选项卡
+ * @param ele 当前点击的button
+ * @returns {boolean}
+ */
+function select_option(ele) {
+    let btn_array = document.getElementById("option").getElementsByTagName("button");
+    if (btn_array == null || btn_array.length === 0) {
+        return false;
     }
+    ele.classList.add("selected");
+    ele.classList.remove("option_btn");
+    for (let i = 0; i < btn_array.length; i++) {
+        let btn = btn_array[i];
+        if (ele !== btn) {
+            btn.classList.add("option_btn");
+            btn.classList.remove("selected");
+        }
+    }
+    let input = document.getElementById("search_input");
+    /* 切换选项卡后，调整输入框提示信息 */
+    input.setAttribute("placeholder", "Search on " + ele.name + "...");
+    /* 切换选项卡后，将鼠标聚焦到输入框 */
+    input.focus();
+}
+
+/**
+ * 执行查询
+ * @returns {boolean}
+ */
+function go() {
+    let keyword = document.getElementById("search_input").value;
+    if (keyword == null || keyword.length === 0) {
+        return false;
+    }
+    let btn_array = document.getElementById("option").getElementsByTagName("button");
+    if (btn_array == null || btn_array.length === 0) {
+        return false;
+    }
+
+    let url = "";
+    for (let i = 0; i < btn_array.length; i++) {
+        let btn = btn_array[i];
+        let btn_class = btn.className;
+        if (btn_class !== "" && btn_class.indexOf("selected") !== -1) {
+            url = get_search_url(btn.id, keyword)
+        }
+    }
+    if (url != null && url !== "") {
+        open_new_page(url);
+    }
+}
+
+/**
+ * 获取搜索的URL
+ * @param from 该搜索的来源：bing、google_translate、youdao_translate
+ * @param keyword 关键词
+ * @returns {string} 计算出的URL
+ */
+function get_search_url(from, keyword) {
+    if (from == null || keyword == null || keyword.length === 0) {
+        return "";
+    }
+    /* bing */
+    if (from === "bing_btn") {
+        return "https://www.bing.com/search?q=" + keyword;
+    }
+    /* EPO专利公开号 */
+    if (from === "epo_pn_btn") {
+        return "https://register.epo.org/advancedSearch?searchMode=advanced&pn=" + keyword;
+    }
+    /* EPO专利申请号 */
+    if (from === "epo_ap_btn") {
+        return "https://register.epo.org/advancedSearch?searchMode=advanced&ap=" + keyword;
+    }
+    return "";
 }
 
 /**
  * 初始化方法
  */
 function init() {
+    /* 设置默认选中的选项卡：必应 */
+    select_option(document.getElementById("bing_btn"));
     /* 绑定搜索框的Enter按键 */
-    bind_search_enter();
+    bind_search_input();
     let url = "data.json";
     let request = new XMLHttpRequest();
     /* 设置请求方法与路径 */
@@ -44,16 +122,27 @@ function init() {
 /**
  * 绑定搜索框的Enter按键搜索
  */
-function bind_search_enter() {
+function bind_search_input() {
+    /* 绑定Enter键触发查询 */
     document.getElementById("search_input")
         .addEventListener("keydown", function (event) {
-            if (event === undefined) {
+            if (event === undefined || variate.type_in_now) {
                 return false;
             }
             if (event.key !== undefined && event.key === "Enter") {
-                do_search();
+                go();
             }
-    }, true);
+        });
+    /* 绑定"待确认文本"开始输入事件 */
+    document.getElementById("search_input")
+        .addEventListener("compositionstart", function () {
+            variate.type_in_now = true;
+        });
+    /* 绑定"待确认文本"结束输入事件 */
+    document.getElementById("search_input")
+        .addEventListener("compositionend", function () {
+            variate.type_in_now = false;
+        });
 }
 
 /**

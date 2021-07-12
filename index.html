@@ -8,21 +8,44 @@
     <script src="static/js/index.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">
-        </div>
-        <div class="search">
-            <label for="search_input"></label><input id="search_input" type="text" placeholder="Bing">
-            <button id="do-search" type="button" onclick="do_search()">搜索</button>
-        </div>
-        <div id="common_btn_line" class="common_btn_line">
-        </div>
-        <div id="common_block" class="common_block">
-            <table id="block_table">
-            </table>
-        </div>
+<div class="container">
+    <div class="logo">
     </div>
-    <!-- 执行初始化 -->
-    <script>init()</script>
+    <div class="search_module">
+        <table>
+            <tr>
+                <td class="td_left">
+                    <div id="option">
+                        <button type="button" id="bing_btn" name="Bing" class="option_btn" onclick="select_option(this)">必应</button>
+                        <button type="button" id="epo_pn_btn" name="EPO publication number" class="option_btn" onclick="select_option(this)">EPO 专利公开号</button>
+                        <button type="button" id="epo_ap_btn" name="EPO application number" class="option_btn" onclick="select_option(this)">EPO 专利申请号</button>
+                    </div>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        <input id="search_input" class="main_input" type="text" placeholder="">
+                    </label>
+                </td>
+                <td class="td_right">
+                    <label>
+                        <button id="go_button" type="button" class="go_button" onclick="go()">Go</button>
+                    </label>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="common_btn_line" class="common_btn_line">
+    </div>
+    <div id="common_block" class="common_block">
+        <table id="block_table">
+        </table>
+    </div>
+</div>
+<!-- 执行初始化 -->
+<script>init()</script>
 </body>
 </html>
