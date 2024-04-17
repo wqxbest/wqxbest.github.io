@@ -13,14 +13,14 @@
     "sizePerLine": 4,
     "blockList": [
       {
-        "name": "RainPat",
-        "url": "https://www.rainpat.com/User/Login",
-        "svg": "https://www.rainpat.com/favicon.ico"
+        "name": "DAWEI",
+        "url": "https://pat.daweisoft.com/home",
+        "svg": "static/icon/ImageToStl.com_0287997c1e9879279cce96cced50e67b.svg"
       },
       {
-        "name": "EPO",
-        "url": "https://register.epo.org/advancedSearch?lng=en",
-        "svg": "https://tse3-mm.cn.bing.net/th/id/OIP-C.4UDoZgtOyd39AdqtVij0egHaHa?pid=ImgDet&rs=1"
+        "name": "163",
+        "url": "https://mail.163.com/",
+        "svg": "static/icon/网易.svg"
       }
     ]
   }
